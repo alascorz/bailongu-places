@@ -1,11 +1,13 @@
 import requests
 
+
 def processar_places(text, index):
     primer = text[index + 7]
     if primer == '1':
         return int(text[index + 7] + text[index + 8])
     else:
         return int(text[index + 7])
+
 
 def parelles_apuntades(url, titol, cursos):
     print('-'*50)
