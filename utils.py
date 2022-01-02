@@ -1,4 +1,5 @@
 import requests
+from constants import bcolors
 
 
 def processar_places(text, index):
@@ -23,7 +24,14 @@ def parelles_apuntades(url, titol, cursos, dades_anteriors):
         parelles_actuals = int((14 - processar_places(text_web, index_places)) / 2)
         text_mostrar = curs.capitalize() + ': ' + str(parelles_actuals)
         if curs in dades_anteriors.keys():
-            diferencia = f" (+{str(parelles_actuals - dades_anteriors[curs])})"
+            diferencia_places = parelles_actuals - dades_anteriors[curs]
+            if diferencia_places > 0:
+                diferencia = f" {bcolors.OKGREEN}(+"
+            elif diferencia_places == 0:
+                diferencia = f" (+"
+            else:
+                diferencia = f" {bcolors.WARNING}("
+            diferencia += f"{str(diferencia_places)}){bcolors.ENDC}"
             text_mostrar += diferencia
         print(text_mostrar)
         store_dict.update({curs: parelles_actuals})
