@@ -9,7 +9,7 @@ def processar_places(text, index):
         return int(text[index + 7])
 
 
-def parelles_apuntades(url, titol, cursos):
+def parelles_apuntades(url, titol, cursos, dades_anteriors):
     store_dict = {}
     print('-'*50)
     print(titol.upper())
@@ -19,8 +19,12 @@ def parelles_apuntades(url, titol, cursos):
     for curs in cursos:
         curs = curs.lower()
         index_curs = text_web.find(curs)
-        index_places = text_web.find('queden ', index_curs)
-        places_restant = int((14 - processar_places(text_web, index_places)) / 2)
-        print(curs.capitalize() + ': ' + str(places_restant))
-        store_dict.update({curs: places_restant})
+        index_places = text_web.find("queden ", index_curs)
+        parelles_actuals = int((14 - processar_places(text_web, index_places)) / 2)
+        text_mostrar = curs.capitalize() + ': ' + str(parelles_actuals)
+        if curs in dades_anteriors.keys():
+            diferencia = f" (+{str(parelles_actuals - dades_anteriors[curs])})"
+            text_mostrar += diferencia
+        print(text_mostrar)
+        store_dict.update({curs: parelles_actuals})
     return store_dict
