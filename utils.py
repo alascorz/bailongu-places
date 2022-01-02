@@ -10,6 +10,7 @@ def processar_places(text, index):
 
 
 def parelles_apuntades(url, titol, cursos):
+    store_dict = {}
     print('-'*50)
     print(titol.upper())
     print('-' * 50)
@@ -21,3 +22,5 @@ def parelles_apuntades(url, titol, cursos):
         index_places = text_web.find('queden ', index_curs)
         places_restant = int((14 - processar_places(text_web, index_places)) / 2)
         print(curs.capitalize() + ': ' + str(places_restant))
+        store_dict.update({curs: places_restant})
+    return store_dict
